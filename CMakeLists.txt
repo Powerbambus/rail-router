@@ -13,4 +13,6 @@ add_executable(rail_router src/main.cpp
         src/algorithms/dijkstra.cpp
         src/algorithms/dijkstra.h
         src/models/route.cpp
-        src/models/route.h)
+        src/models/route.h
+        src/algorithms/matcher.cpp
+        src/algorithms/matcher.h)
