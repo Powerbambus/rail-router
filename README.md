@@ -11,6 +11,7 @@ Enter your desired start and end station into the CLI and get the optimal route 
 There are two different `.csv`. In the `stations.csv` you can put the ID and name of your stations. In the `connections.csv` you put connections between two stations and the duration for this track section in minutes.
 ## What's next?
 - [x] CLI
-- [ ] Add more stations. 
+- [ ] Add more stations.
+
 The bigger future plan is to add more functions like timetables, capacity calculator and conflict solver. Maybe sometime I add track signals and crossovers. But that's wide in the future.
 
