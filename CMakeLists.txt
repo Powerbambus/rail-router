@@ -15,4 +15,5 @@ add_executable(rail_router src/main.cpp
         src/models/route.cpp
         src/models/route.h
         src/algorithms/matcher.cpp
-        src/algorithms/matcher.h)
+        src/algorithms/matcher.h
+)

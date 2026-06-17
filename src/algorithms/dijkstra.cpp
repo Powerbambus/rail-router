@@ -2,7 +2,9 @@
 #include <algorithm>
 #include <map>
 #include <queue>
-
+#include <iostream>
+#include <thread>
+#include <chrono>
 
 #include "dijkstra.h"
 
@@ -11,7 +13,13 @@
 
 #include "../models/station.h"
 
-Route find_shortest_path_dijkstra(std::string start_station, std::string end_station, std::vector<Connection> connections, std::unordered_map<std::string, Station> network_stations) {
+Route find_shortest_path_dijkstra(
+    std::string start_station,
+    std::string end_station,
+    std::vector<Connection> connections,
+    std::unordered_map<std::string, Station> network_stations,
+    bool verbose
+) {
     if (network_stations.find(start_station) == network_stations.end()) {
         throw std::logic_error("start station not found");
     }
@@ -62,6 +70,41 @@ Route find_shortest_path_dijkstra(std::string start_station, std::string end_sta
         }
         if (queue.empty()) {
             throw std::logic_error("can't find connection between start and end station");
+        }
+
+        if (verbose) {
+            uint16_t print_lines = 0;
+            std::cout << "Costs: [";
+            for (auto it = costs.begin(); it != costs.end(); ++it) {
+                std::cout << "(" << it->first << ": " << it->second << "), ";
+            }
+            std::cout << "]" << std::endl;
+            print_lines++;
+            std::cout << "Visited stations: [";
+            for (const auto& v_station : visited_stations) {
+                std::cout << v_station << ", ";
+            }
+            std::cout << "]" << std::endl;
+            print_lines++;
+            std::cout << "Came from: [";
+            for (auto it = came_from.begin(); it != came_from.end(); ++it) {
+                std::cout << "(" << it->first << ": " << it->second << "), ";
+            }
+            std::cout << "]" << std::endl;
+            print_lines++;
+            std::priority_queue<std::pair<uint16_t, std::string>> queue_copy = queue;
+            std::cout << "Queue: [";
+            while (!queue_copy.empty()) {
+                current = queue_copy.top();
+                std::cout << current.first << ": " << current.second << ", ";
+                queue_copy.pop();
+            }
+            std::cout << "]" << std::endl;
+            print_lines++;
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+            std::cout << "--------------" << std::endl;
         }
     }
 

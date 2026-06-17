@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ostream>
+#include <algorithm>
 
 #include "./utils/csv_reader.h"
 #include "algorithms/dijkstra.h"
@@ -68,8 +69,27 @@ int main() {
             }
         }
         std::cout << "Searching route from " << start_station << " to " << end_station << std::endl;
+        bool simulation_output = false;
+        bool simulation_input = false;
+        while (!simulation_input) {
+            std::string simulation_input_string;
+            std::cout << "Do you want an simulation output? y/n" << std::endl;
+            std::cin >> simulation_input_string;
+            transform(simulation_input_string.begin(), simulation_input_string.end(), simulation_input_string.begin() ,::tolower);
+            if (simulation_input_string == "y") {
+                simulation_output = true;
+                simulation_input = true;
+                break;
+            } else if (simulation_input_string == "n") {
+                simulation_output = false;
+                simulation_input = true;
+                break;
+            } else {
+                std::cout << "Invalid input! Please try again!" << std::endl;
+            }
+        }
         std::cout << "Start searching..." << std::endl;
-        Route route = find_shortest_path_dijkstra(start_station, end_station, connections, stations);
+        Route route = find_shortest_path_dijkstra(start_station, end_station, connections, stations, simulation_output);
         std::cout << std::endl;
         std::cout << "Found route with a total duration of " << route.total_duration << " min." << std::endl;
         std::cout << start_station << " -> ";
