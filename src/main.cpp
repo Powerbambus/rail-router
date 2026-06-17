@@ -68,7 +68,7 @@ int main() {
                 continue;
             }
         }
-        std::cout << "Searching route from " << start_station << " to " << end_station << std::endl;
+        std::cout << "Searching route from " << stations[start_station].name << " to " << stations[end_station].name << std::endl;
         bool simulation_output = false;
         bool simulation_input = false;
         while (!simulation_input) {
@@ -92,12 +92,12 @@ int main() {
         Route route = find_shortest_path_dijkstra(start_station, end_station, connections, stations, simulation_output);
         std::cout << std::endl;
         std::cout << "Found route with a total duration of " << route.total_duration << " min." << std::endl;
-        std::cout << start_station << " -> ";
+        std::cout << stations[start_station].name << " -> ";
         for (auto& station : route.stations) {
             if (station == start_station || station == end_station) continue;
-            std::cout << station <<  " -> ";
+            std::cout << stations[station].name <<  " -> ";
         }
-        std::cout << end_station;
+        std::cout << stations[end_station].name;
         std::cout << std::endl;
         std::cout << "Press q to exit or Enter to continue...";
         std::string exit;
